@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <TaleDef>
+    <defName>ColonistRegenerated</defName>
+    <label>regenerated</label>
+    <taleClass>Tale_SinglePawn</taleClass>
+    <type>Volatile</type>
+    <baseInterest>4</baseInterest>
+    <rulePack>
+      <rulesStrings>
+        <li>tale_noun->[PAWN_nameDef] regenerated, bursting into light and coming back a new person</li>
+      </rulesStrings>
+    </rulePack>
+  </TaleDef>
+</Defs>
