@@ -10,84 +10,91 @@
 
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration01</defName>
-    <label>resurrection nuclei (01/12)</label>
+    <label>resurrection nuclei (01/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna..</description>
   </HediffDef>
   
     <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration02</defName>
-    <label>resurrection nuclei (02/12)</label>
+    <label>resurrection nuclei (02/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration03</defName>
-    <label>resurrection nuclei (03/12)</label>
+    <label>resurrection nuclei (03/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration04</defName>
-    <label>resurrection nuclei (04/12)</label>
+    <label>resurrection nuclei (04/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration05</defName>
-    <label>resurrection nuclei (05/12)</label>
+    <label>resurrection nuclei (05/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
     <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration06</defName>
-    <label>resurrection nuclei (06/12)</label>
+    <label>resurrection nuclei (06/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration07</defName>
-    <label>resurrection nuclei (07/12)</label>
+    <label>resurrection nuclei (07/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration08</defName>
-    <label>resurrection nuclei (08/12)</label>
+    <label>resurrection nuclei (08/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration09</defName>
-    <label>resurrection nuclei (09/12)</label>
+    <label>resurrection nuclei (09/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
     <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration10</defName>
-    <label>resurrection nuclei (10/12)</label>
+    <label>resurrection nuclei (10/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration11</defName>
-    <label>resurrection nuclei (11/12)</label>
+    <label>resurrection nuclei (11/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
   
   <HediffDef ParentName="ImplantHediffBase">
     <defName>Regeneration12</defName>
-    <label>resurrection nuclei (12/12)</label>
+    <label>resurrection nuclei (12/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration13</defName>
+    <label>resurrection nuclei (13/13)</label>
     <labelNoun>resurrection nuclei</labelNoun>
     <description>The genetic trace of resurrection tech infused with host dna.</description>
   </HediffDef>
@@ -104,7 +111,7 @@
       <texPath>Things/Item/Special/MechSerumResurrector</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>0.80</drawSize>
-      <color>(255,223,112)</color>
+      <color>(255,223,113)</color>
     </graphicData>
     <statBases>
 		<WorkToMake>750</WorkToMake>
@@ -159,7 +166,7 @@
     <defName>Mote_Regen</defName>
     <graphicData>
       <texPath>Things/Mote/Smoke</texPath>
-      <color>(255, 223, 112)</color>
+      <color>(255, 223, 113)</color>
       <drawSize>(2.5,2.5)</drawSize>
     </graphicData>
     <altitudeLayer>MoteOverhead</altitudeLayer>

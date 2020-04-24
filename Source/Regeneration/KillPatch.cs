@@ -52,7 +52,7 @@ namespace Regeneration
 
             if (HasRegen(__instance))
             {
-                if (!__instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration12")))
+                if (!__instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration13")))
                 {
                     Regenerate(__instance);
                 }
@@ -98,6 +98,7 @@ namespace Regeneration
             HediffDef Regen10Def = HediffDef.Named("Regeneration10");
             HediffDef Regen11Def = HediffDef.Named("Regeneration11");
             HediffDef Regen12Def = HediffDef.Named("Regeneration12");
+            HediffDef Regen13Def = HediffDef.Named("Regeneration13");
 
             if (__instance.health.hediffSet.HasHediff(Regen1Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen1Def)); __instance.health.AddHediff(Regen2Def,heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen2Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen2Def)); __instance.health.AddHediff(Regen3Def, heart); }
@@ -110,6 +111,7 @@ namespace Regeneration
             else if (__instance.health.hediffSet.HasHediff(Regen9Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen9Def)); __instance.health.AddHediff(Regen10Def, heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen10Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen10Def)); __instance.health.AddHediff(Regen11Def, heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen11Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen11Def)); __instance.health.AddHediff(Regen12Def, heart); }
+            else if (__instance.health.hediffSet.HasHediff(Regen12Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen12Def)); __instance.health.AddHediff(Regen13Def, heart); }
 
             // Visual Changes ----------------------------------------------------------------------------------------------------------
 
@@ -290,7 +292,8 @@ namespace Regeneration
                 __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration08")) ||
                 __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration09")) ||
                 __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration10")) ||
-                __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration11"))
+                __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration11")) ||
+                __instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration12"))
                 )
             {
                 return true;

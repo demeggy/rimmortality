@@ -17,6 +17,23 @@
     </stages>
   </ThoughtDef>
   
+  <ThoughtDef ParentName="DeathMemory">
+    <defName>AncientRecentlyRegenerated</defName>
+    <durationDays>60</durationDays>
+    <stackLimit>100</stackLimit>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+      <li>Bloodlust</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>where is death?</label>
+        <description>I resurrected... again. Where is death?</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
   <ThoughtDef>
     <defName>KnownColonistRegeneratedSocial</defName>
     <thoughtClass>Thought_MemorySocial</thoughtClass>
