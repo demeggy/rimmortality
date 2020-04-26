@@ -74,10 +74,13 @@ namespace Regeneration
             //Resurrect the __instance
             ResurrectionUtility.Resurrect(__instance);
 
-            //Remove injury hediffs
-            foreach (Hediff h in __instance.health.hediffSet.GetHediffs<Hediff_Injury>())
+            //Remove all bad hediffs
+            foreach (Hediff h in __instance.health.hediffSet.GetHediffs<Hediff>())
             {
-                __instance.health.RemoveHediff(h);
+                if(h.def.isBad)
+                {
+                    __instance.health.RemoveHediff(h);
+                }                
             }
 
             //Add resurrection sickness
