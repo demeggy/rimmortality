@@ -41,9 +41,6 @@
     <stackLimit>12</stackLimit>
     <stackLimitForSameOtherPawn>12</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
-    <nullifyingTraits>
-      <li>Psychopath</li>
-    </nullifyingTraits>
     <stages>
       <li>
         <label>family member regenerated</label>

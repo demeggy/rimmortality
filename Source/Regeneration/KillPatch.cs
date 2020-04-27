@@ -52,6 +52,8 @@ namespace Regeneration
 
             if (HasRegen(__instance))
             {
+                Log.Warning("has regen");
+
                 if (!__instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration13")))
                 {
                     Regenerate(__instance);
@@ -160,8 +162,19 @@ namespace Regeneration
             //Add debuff thought to all related colonists
             foreach (Pawn p in __instance.relations.RelatedPawns)
             {
-                p.needs.mood.thoughts.memories.TryGainMemory(RegenerationThoughtDefs.KnownColonistRegeneratedSocial, __instance);
-                p.needs.mood.thoughts.memories.TryGainMemory(RegenerationThoughtDefs.KnownColonistRegenerated);
+                //Log.Warning("related to: " + p.Name);
+                try
+                {
+                    if (!p.health.Dead)
+                    {
+                        p.needs.mood.thoughts.memories.TryGainMemory(RegenerationThoughtDefs.KnownColonistRegeneratedSocial, __instance);
+                        p.needs.mood.thoughts.memories.TryGainMemory(RegenerationThoughtDefs.KnownColonistRegenerated);
+                    }                    
+                }
+                catch
+                {
+                    Log.Warning("Couldn't add social debuff to " + p.Name);
+                }
             }
 
             // Visual effects -------------------------------------------------------------------------------------------------------
@@ -252,7 +265,6 @@ namespace Regeneration
         static Gender GenderSwap(Gender gender)
         {
             var rand = Rand.Value;
-            Log.Warning(rand + "% rand gender");
             if (gender == Gender.Male)
             {
                 if (rand > 0.95f)
