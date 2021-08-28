@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -43,38 +44,74 @@ namespace Regeneration
     static class PawnKill_Patch
     {
 
-        //Patch for standard death
+        //Patch for worldmap death
         [HarmonyPriority(Priority.First)]
-        static void Postfix(Pawn __instance)
+        static void Prefix(Pawn __instance, out RoyalTitleDef __state)
         {
-            //Only autoresurrect if colonist has the regeneration nuclei hediff and has less than 12 regenerations left
+
             HediffDef RegenerationHediff = HediffDef.Named("Regeneration");
+            RoyalTitleDef titleDef = null;
 
             if (HasRegen(__instance))
             {
-                Log.Warning("has regen");
+                //Royal Prefix
 
+                if (__instance.royalty.HasAnyTitleIn(Find.FactionManager.FirstFactionOfDef(FactionDefOf.Empire)))
+                {
+                    titleDef = __instance.GetCurrentTitleIn(Find.FactionManager.FirstFactionOfDef(FactionDefOf.Empire));
+                    Log.Warning("Title is: " + titleDef.defName);
+                }
+                
+
+                //Caravan Prefix
+                if (__instance.IsCaravanMember())
+                {
+                    Log.Warning("In caravan: " + __instance.GetCaravan().Label);
+
+                    //Map map = CaravanIncidentUtility.GetOrGenerateMapForIncident(__instance.GetCaravan(), new IntVec3(100, 1, 100), WorldObjectDefOf.Site);
+                    //map.Parent.SetFaction(__instance.Faction);
+                    //IntVec3 playerSpot;
+                    //IntVec3 enemySpot;
+                    //MultipleCaravansCellFinder.FindStartingCellsFor2Groups(map, out playerSpot, out enemySpot);
+                    //CaravanEnterMapUtility.Enter(__instance.GetCaravan(), map, (Pawn p) => CellFinder.RandomClosewalkCellNear(playerSpot, map, 12, null), CaravanDropInventoryMode.DoNotDrop, true);
+                    
+                    
+
+                }
+            }
+
+            __state = titleDef;
+        }
+
+        //Patch for generated map death
+        [HarmonyPriority(Priority.First)]
+        static void Postfix(Pawn __instance, RoyalTitleDef __state)
+        {
+            //Only autoresurrect if colonist has the regeneration nuclei hediff and has less than 12 regenerations left
+            HediffDef RegenerationHediff = HediffDef.Named("Regeneration");
+            Caravan caravan = __instance.GetCaravan();
+
+            Debug.Log(caravan);
+
+            if (HasRegen(__instance))
+            {
                 if (!__instance.health.hediffSet.HasHediff(HediffDef.Named("Regeneration13")))
                 {
-                    Regenerate(__instance);
+                    Regenerate(__instance, __state);
                 }
             }
         }
 
-        //Patch for Caravan/Worldmap death
-        //TBF
-
-        //Patch death messages
-        //TBF
-
         //Change Appearance, Traits and memories of pawns
-        static void Regenerate(Pawn __instance)
+        static void Regenerate(Pawn __instance, RoyalTitleDef __state)
         {
+            Log.Warning("Triggering regen");
 
             // Health State Changes ----------------------------------------------------------------------------------------------------------
 
             //Resurrect the __instance
-            ResurrectionUtility.Resurrect(__instance);
+            //ResurrectionUtility.Resurrect(__instance);
+            RegenResurrect(__instance, __instance.GetCaravan());
 
             //Remove all bad hediffs
             foreach (Hediff h in __instance.health.hediffSet.GetHediffs<Hediff>())
@@ -105,7 +142,7 @@ namespace Regeneration
             HediffDef Regen12Def = HediffDef.Named("Regeneration12");
             HediffDef Regen13Def = HediffDef.Named("Regeneration13");
 
-            if (__instance.health.hediffSet.HasHediff(Regen1Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen1Def)); __instance.health.AddHediff(Regen2Def,heart); }
+            if (__instance.health.hediffSet.HasHediff(Regen1Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen1Def)); __instance.health.AddHediff(Regen2Def, heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen2Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen2Def)); __instance.health.AddHediff(Regen3Def, heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen3Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen3Def)); __instance.health.AddHediff(Regen4Def, heart); }
             else if (__instance.health.hediffSet.HasHediff(Regen4Def)) { __instance.health.RemoveHediff(__instance.health.hediffSet.GetFirstHediffOfDef(Regen4Def)); __instance.health.AddHediff(Regen5Def, heart); }
@@ -122,17 +159,23 @@ namespace Regeneration
 
             //Gender
             __instance.gender = GenderSwap(__instance.gender);
+            if(__instance.gender == Gender.Female)
+            {
+                __instance.style.beardDef = null;
+            }
 
             //Skintone
             __instance.story.melanin = 0.01f * Rand.Range(10, 200);
 
             //Head
-            var graphicPath = GraphicDatabaseHeadRecords.GetHeadRandom(__instance.gender, __instance.story.SkinColor, __instance.story.crownType).GraphicPath;
+            var graphicPath = GraphicDatabaseHeadRecords.GetHeadRandom(__instance.gender, __instance.story.SkinColor, __instance.story.crownType,true).GraphicPath;
             Traverse.Create(__instance.story).Field("headGraphicPath").SetValue(graphicPath);
 
             //Hair
-            __instance.story.hairDef = PawnHairChooser.RandomHairDefFor(__instance, FactionDefOf.PlayerColony);
-            __instance.story.hairColor = HairColor();
+            //__instance.story.hairDef = PawnHairChooser.RandomHairDefFor(__instance, FactionDefOf.PlayerColony);
+
+            __instance.story.hairDef = PawnStyleItemChooser.RandomHairFor(__instance);
+            __instance.story.hairColor = PawnHairColors.RandomHairColor(__instance.story.SkinColor,__instance.ageTracker.AgeBiologicalYears);
 
             //Body
             __instance.story.bodyType = BodySwap(__instance.gender);
@@ -155,6 +198,13 @@ namespace Regeneration
                 __instance.story.traits.GainTrait(trait2);
                 i++;
             }
+
+            //Royalty Patch
+            if(__state != null)
+            {
+                __instance.royalty.SetTitle(Find.FactionManager.FirstFactionOfDef(FactionDefOf.Empire), __state, true, false, false);
+            }
+
 
             //Add Memory
             __instance.needs.mood.thoughts.memories.TryGainMemory(RegenerationThoughtDefs.RecentlyRegenerated, null);
@@ -180,12 +230,91 @@ namespace Regeneration
             // Visual effects -------------------------------------------------------------------------------------------------------
 
             //Glow effect (ugly approach, look at cleaning this up)
-            MoteMaker.ThrowAirPuffUp(__instance.DrawPos, __instance.Map);
-            MoteMaker.ThrowFireGlow(__instance.Position, __instance.Map, 3f);
-            MoteMaker.ThrowFireGlow(__instance.Position, __instance.Map, 3f);
-            MoteMaker.ThrowFireGlow(__instance.Position, __instance.Map, 3f);
-            MoteMaker.ThrowFireGlow(__instance.Position, __instance.Map, 3f);
-            MoteMaker.ThrowFireGlow(__instance.Position, __instance.Map, 3f);
+            FleckMaker.ThrowFireGlow(__instance.Position.ToVector3(), __instance.Map, 3f);
+            FleckMaker.ThrowFireGlow(__instance.Position.ToVector3(), __instance.Map, 3f);
+            FleckMaker.ThrowFireGlow(__instance.Position.ToVector3(), __instance.Map, 3f);
+            FleckMaker.ThrowFireGlow(__instance.Position.ToVector3(), __instance.Map, 3f);
+            FleckMaker.ThrowFireGlow(__instance.Position.ToVector3(), __instance.Map, 3f);
+        }
+
+        //Custom Resurrection
+        public static void RegenResurrect(Pawn pawn, Caravan caravan)
+        {
+            if (!pawn.Dead)
+            {
+                Log.Error("Tried to resurrect a pawn who is not dead: " + pawn.ToStringSafe<Pawn>());
+                return;
+            }
+            if (pawn.Discarded)
+            {
+                Log.Error("Tried to resurrect a discarded pawn: " + pawn.ToStringSafe<Pawn>());
+                return;
+            }
+
+            Corpse corpse = pawn.Corpse;
+            bool flag = false;
+            IntVec3 loc = IntVec3.Invalid;
+            Map map = null;
+            if (corpse != null)
+            {
+                Log.Warning("a");
+                flag = corpse.Spawned;
+                loc = corpse.Position;
+                map = corpse.Map;
+                corpse.InnerPawn = null;
+                corpse.Destroy(DestroyMode.Vanish);
+            }
+
+            Log.Warning("flag: " + flag);
+            Log.Warning("world pawn: " + pawn.IsWorldPawn());
+
+            if (flag && pawn.IsWorldPawn())
+            {
+                Find.WorldPawns.RemovePawn(pawn);
+            }
+            else
+            {
+                Log.Warning("b");
+                pawn.GetCaravan().AddPawn(pawn, true);
+            }
+
+            pawn.ForceSetStateToUnspawned();
+            PawnComponentsUtility.CreateInitialComponents(pawn);
+            pawn.health.Notify_Resurrected();
+            if (pawn.Faction != null && pawn.Faction.IsPlayer)
+            {
+                if (pawn.workSettings != null)
+                {
+                    pawn.workSettings.EnableAndInitialize();
+                }
+                Find.StoryWatcher.watcherPopAdaptation.Notify_PawnEvent(pawn, PopAdaptationEvent.GainedColonist);
+            }
+            if (flag)
+            {
+                Log.Warning("c");
+                GenSpawn.Spawn(pawn, loc, map, WipeMode.Vanish);
+                for (int i = 0; i < 10; i++)
+                {
+                    FleckMaker.ThrowAirPuffUp(pawn.DrawPos, map);
+                }
+                if (pawn.Faction != null && pawn.Faction != Faction.OfPlayer && pawn.HostileTo(Faction.OfPlayer))
+                {
+                    LordMaker.MakeNewLord(pawn.Faction, new LordJob_AssaultColony(pawn.Faction, true, true, false, false, true, false, false), pawn.Map, Gen.YieldSingle<Pawn>(pawn));
+                }
+                if (pawn.apparel != null)
+                {
+                    List<Apparel> wornApparel = pawn.apparel.WornApparel;
+                    for (int j = 0; j < wornApparel.Count; j++)
+                    {
+                        wornApparel[j].Notify_PawnResurrected();
+                    }
+                }
+            }
+            PawnDiedOrDownedThoughtsUtility.RemoveDiedThoughts(pawn);
+            if (pawn.royalty != null)
+            {
+                pawn.royalty.Notify_Resurrected();
+            }
         }
 
         //Randomise Body
@@ -237,37 +366,13 @@ namespace Regeneration
 
         }
 
-        //Randomise HairColor
-        static Color HairColor()
-        {
-            var rand = Rand.Value;
-
-            //Blonde
-            if (rand < 0.25f)
-                return new Color(0.96f, 0.94f, 0.77f);
-
-            //Dark
-            if (rand < 0.5f)
-                return new Color(0.31f, 0.28f, 0.26f);
-
-            //Red
-            if (rand < 0.75f)
-                return new Color(0.82f, 0.47f, 0.15f);
-
-            //Grey
-            if (rand < 0.75f)
-                return new Color(0.7f, 0.7f, 0.7f);
-
-            return new Color(0.3f, 0.2f, 0.1f);
-        }
-
         //Swap Gender
         static Gender GenderSwap(Gender gender)
         {
             var rand = Rand.Value;
             if (gender == Gender.Male)
             {
-                if (rand > 0.95f)
+                if (rand > 0.5f)
                 {
                     Log.Warning("Switching to Female");
                     return Gender.Female;
@@ -279,7 +384,7 @@ namespace Regeneration
             }
             else
             {
-                if (rand > 0.95f)
+                if (rand > 0.5f)
                 {
                     Log.Warning("Switching to Male");
                     return Gender.Male;
@@ -315,6 +420,13 @@ namespace Regeneration
             }
 
             return false;
+        }
+
+        //Rejoin carvan
+        static void RejoinCaravan(Caravan caravan, Pawn ___instance)
+        {
+            Log.Warning("Pawn added back to caravan");
+            caravan.AddPawn(___instance,true);
         }
 
     }
