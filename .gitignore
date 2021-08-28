@@ -3,6 +3,6 @@
 *.ide
 *.ide-shm
 *.ide-wal
-1.1/Source/.vs/Regeneration/v15/.suo
-1.1/Source/.vs/Regeneration/v16/.suo
-1.3/Source/Regeneration/.vs/Regeneration/v16/.suo
+*.suo
+1.1/Source/Regeneration/obj
+1.3/Source/Regeneration/obj

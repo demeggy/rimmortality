@@ -269,7 +269,7 @@ namespace Regeneration
                     Log.Warning("Staying the same gender");
                 }
             }
-            else
+            else if (gender == Gender.Female)
             {
                 if (rand > 0.95f)
                 {
