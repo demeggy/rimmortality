@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration</defName>
+    <label>regen ability - to be hidden</label>
+    <labelNoun>regen ability - to be hidden</labelNoun>
+    <description>regen ability - to be hidden</description>
+  </HediffDef>
+
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration01</defName>
+    <label>resurrection nuclei (01/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna..</description>
+  </HediffDef>
+  
+    <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration02</defName>
+    <label>resurrection nuclei (02/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration03</defName>
+    <label>resurrection nuclei (03/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration04</defName>
+    <label>resurrection nuclei (04/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration05</defName>
+    <label>resurrection nuclei (05/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+    <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration06</defName>
+    <label>resurrection nuclei (06/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration07</defName>
+    <label>resurrection nuclei (07/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration08</defName>
+    <label>resurrection nuclei (08/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration09</defName>
+    <label>resurrection nuclei (09/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+    <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration10</defName>
+    <label>resurrection nuclei (10/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration11</defName>
+    <label>resurrection nuclei (11/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration12</defName>
+    <label>resurrection nuclei (12/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>Regeneration13</defName>
+    <label>resurrection nuclei (13/13)</label>
+    <labelNoun>resurrection nuclei</labelNoun>
+    <description>The genetic trace of resurrection tech infused with host dna.</description>
+  </HediffDef>
+  
+  <!-- -->
+
+  <ThingDef ParentName="BodyPartBase">
+    <defName>RegenSerum</defName>
+    <label>super-resurrection serum</label>
+    <description>A one-use super-dose of dna mutating mechanites tuned to automatically resurrect the dead. Administered to a patient, mechanites mutate the genetic structure of the body, granting automatic resurrection twelve times. Unfortunately, the resurrected come back with a completely new appearance (sometimes shifting the patients gender entirely) and set of behaviours.</description>
+    <descriptionHyperlinks><RecipeDef>InstallRegenSerum</RecipeDef></descriptionHyperlinks>
+    <techLevel>Spacer</techLevel>
+    <graphicData>
+      <texPath>Things/Item/Special/MechSerumResurrector</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.80</drawSize>
+      <color>(255,223,113)</color>
+    </graphicData>
+    <statBases>
+		<WorkToMake>750</WorkToMake>
+		<MarketValue>2500</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>BodyPartsBionic</li>
+    </thingCategories>
+	<researchPrerequisites>
+      <li>RegenerationTech</li>
+    </researchPrerequisites>
+	    <recipeMaker>
+      <researchPrerequisite>RegenerationTech</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+    </recipeMaker>
+    <costList>
+      <MechSerumHealer>1</MechSerumHealer>
+	  <MechSerumResurrector>1</MechSerumResurrector>
+	  <Neutroamine>2</Neutroamine>
+    </costList>
+  </ThingDef>
+
+  <RecipeDef ParentName="SurgeryInstallImplantBase">
+    <defName>InstallRegenSerum</defName>
+    <label>inject regeneration serum</label>
+    <description>Inject a regeneration serum</description>
+    <jobString>Injecting regeneration serum.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>RegenSerum</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>RegenSerum</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <appliedOnFixedBodyParts>
+      <li>Heart</li>
+    </appliedOnFixedBodyParts>
+    <addsHediff>Regeneration01</addsHediff>
+  </RecipeDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>Mote_Regen</defName>
+    <graphicData>
+      <texPath>Things/Mote/Smoke</texPath>
+      <color>(255, 223, 113)</color>
+      <drawSize>(2.5,2.5)</drawSize>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.50</fadeInTime>
+      <solidTime>1.5</solidTime>
+      <fadeOutTime>1.5</fadeOutTime>
+      <growthRate>0.025</growthRate>
+    </mote>
+  </ThingDef>
+
+  <SoundDef>
+    <defName>RegenerationSound</defName>
+    <maxSimultaneous>1</maxSimultaneous>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <context>MapOnly</context>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>Misc/DeathAcidifier</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>40.384~40.384</volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>
